@@ -1,0 +1,45 @@
+---
+
+# - name: Create a profile
+#   lxd_profile:
+#     state: present
+#     name: ansible
+#     config:
+#       user.user-data: "{{ lookup('template', './cloud-config.yml') }}"
+
+# - name: Delete a container
+#   lxd_container:
+#     name: test
+#     state: absent
+
+# - name: Create a container
+#   lxd_container:
+#     name: test
+#     state: started
+#     source:
+#       type: image
+#       alias: "18.04"
+#       server: https://cloud-images.ubuntu.com/releases
+#       protocol: simplestreams
+#     config:
+#       user.user-data: "{{ lookup('template', './cloud-config.yml') }}"
+#     profiles: ['default', ansible]
+#     wait_for_ipv4_addresses: true
+
+- name: List containers
+  command: lxc list --format=json
+  register: containers
+
+- debug:
+    msg: "{{ item.name }}: {{ item.state.network.eth0.addresses[0].address }}"
+  delegate_to: localhost
+  loop: "{{ containers.stdout | from_json }}"
+
+- name: Add containers to hosts
+  loop: "{{ containers.stdout | from_json }}"
+  delegate_to: localhost
+  add_host:
+    name: "{{ item.name }}"
+    ansible_host: "{{ item.state.network.eth0.addresses[0].address }}"
+    groups:
+      - containers

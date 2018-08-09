@@ -1,0 +1,6 @@
+---
+
+- block:
+    - name: Install node_exporter
+      include: "{{ role_path }}/tasks/install.yml"
+  when: state|default('present') == "present"

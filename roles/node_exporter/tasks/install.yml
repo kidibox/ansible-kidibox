@@ -1,0 +1,8 @@
+---
+
+- name: install node_exporter
+  unarchive:
+    remote_src: true
+    src: '{{ node_exporter_src_url }}'
+    dest: '{{ node_exporter_extract_dir }}'
+  become: true

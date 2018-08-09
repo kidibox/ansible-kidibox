@@ -1,0 +1,31 @@
+---
+
+# - name: List containers
+#   command: lxc list --format=json
+#   register: containers
+
+# - name: Add containers to hosts
+#   loop: "{{ containers.stdout | from_json }}"
+#   add_host:
+#     hostname: item.name
+#     ansible_host: "{{ item.state.network.eth0.addresses[0].address }}"
+#     groups:
+#       - containers
+
+# - meta: refresh_inventory
+
+- import_playbook: kidibox.yml
+  # - import_playbook: nas.yml
+
+- hosts: containers
+  gather_facts: false
+  tasks:
+    - name: Update
+      apt:
+        update_cache: yes
+        upgrade: dist
+      become: yes
+
+- hosts: containers
+  roles:
+    - { name: node_exporter, state: present }

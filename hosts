@@ -1,0 +1,9 @@
+[kidibox]
+box.kidibox.net ansible_python_interpreter="env python3"
+
+[containers]
+
+[containers:vars]
+ansible_ssh_user=ubuntu
+ansible_ssh_common_args='-o ProxyJump=box.kidibox.net'
+ansible_python_interpreter="env python3"
