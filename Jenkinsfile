@@ -1,5 +1,13 @@
 #!/usr/bin/env groovy
+pipeline {
+  stages {
+    stage('dsl') {
+      jobDsl targets: ['jobs/*.groovy'].join('\n')
+    }
+  }
+}
 
+/*
 node {
     jobDsl targets: ['jobs/*.groovy'].join('\n'),
            ignoreMissingFiles: true,
@@ -16,3 +24,4 @@ node {
         additionalParameters: [message: 'Hello from pipeline', credentials: 'SECRET']
     ])
 }
+*/
