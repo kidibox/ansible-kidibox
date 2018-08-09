@@ -1,9 +1,11 @@
 #!/usr/bin/env groovy
 pipeline {
-  agent: any
+  agent any
   stages {
     stage('dsl') {
-      jobDsl targets: ['jobs/*.groovy'].join('\n')
+      steps {
+        jobDsl targets: ['jobs/*.groovy'].join('\n')
+      }
     }
   }
 }
