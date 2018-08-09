@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 node {
     jobDsl targets: ['jobs/*.groovy'].join('\n'),
            ignoreMissingFiles: true,
