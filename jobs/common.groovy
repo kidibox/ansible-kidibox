@@ -1,3 +1,2 @@
-folder('test')
-
-job('example-1')
+folder('/test')
+folder('test2')
