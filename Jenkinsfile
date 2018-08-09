@@ -4,7 +4,11 @@ pipeline {
   stages {
     stage('dsl') {
       steps {
-        jobDsl targets: ['jobs/*.groovy'].join('\n')
+        jobDsl targets: ['jobs/*.groovy'].join('\n'),
+               removedJobAction: 'DELETE',
+               removedViewAction: 'DELETE,
+               lookupStrategy: 'SEED_JOB',
+               sandbox: true
       }
     }
   }
