@@ -1,5 +1,5 @@
 node {
-    jobDsl targets: ['jobs/common.groovy'].join('\n'),
+    jobDsl targets: ['jobs/*.groovy'].join('\n'),
            ignoreMissingFiles: true,
            removedJobAction: 'DELETE',
            removedViewAction: 'DELETE',
