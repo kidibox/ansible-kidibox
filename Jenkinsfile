@@ -1,6 +1,8 @@
 node {
     jobDsl targets: ['jobs/common.groovy'].join('\n'),
+           ignoreMissingFiles: true,
            removedJobAction: 'DELETE',
            removedViewAction: 'DELETE',
-           lookupStrategy: 'SEED_JOB'
+           lookupStrategy: 'JENKINS_ROOT',
+           sandbox: true
 }
